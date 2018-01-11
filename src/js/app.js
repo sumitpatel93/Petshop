@@ -24,10 +24,14 @@ App = {
   },
 
   initWeb3: function() {
-    /*
-     * Replace me...
-     */
-
+    //is there is an injected web3 instance?
+   if (typeof web3 !== 'undefined') {
+    App.web3Provider = web3.currentProvider;
+   } else {
+     //if no injected web3 instance is detected ,fallback to test TestRPC
+    App.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+   }
+   web3 = new web3(App.web3Provider);
     return App.initContract();
   },
 
